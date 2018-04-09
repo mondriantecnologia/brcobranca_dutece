@@ -386,7 +386,7 @@ module Brcobranca
             linha << '00' #414 A 415 - codigo de area na empresa - opcional
             linha << ''.ljust(35,' ') # 416 A 450 - Para uso da empresa - fixo branco
             linha << ''.ljust(22,' ') # 451 A 472 - Fixo Brancos
-            linha << (item_repasse.id - 167000).to_s.slice(0,5).rjust(5,'0')   #473 A 477 - Codigo de lancamento
+            linha << (item_repasse.id - 168766).to_s.slice(0,5).rjust(5,'0')   #473 A 477 - Codigo de lancamento
             linha << ' ' # 478 A 478 reserva - fixo branco
             linha << item_repasse.cartorio.dado_cartorario.tipo_conta.to_s #479 A 479 - Tipo de conta do fornecedor - 1 = conta corrente, 2= conta poupanca
             linha << self.parametros.conta.rjust(7,'0') #480 A 486 - Conta complementar - Fixo 0
