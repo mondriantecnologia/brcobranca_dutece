@@ -80,7 +80,7 @@ module Brcobranca
         primeira_linha << self.parametros.codigo_de_comunicacao.to_s.rjust(8,'0') # 002 A 009 - Código de Comunicação - 008 
         primeira_linha << '2' #010 A 010 -  Tipo de Inscrição da Empresa Pagadora - 1 = CPF / 2 = CNPJ / 3= OUTROS
         primeira_linha << self.parametros.cnpj_cedente.rjust(15,'0') #011 A 025 - CNPJ/CPF Base da Empresa Pagadora
-        primeira_linha << I18n.transliterate(self.parametros.cedente)[0,40].ljust(40," ").upcase # 26 a 65 nome da empresa      
+        primeira_linha << I18n.transliterate(self.parametros.cedente)[0,40].to_s.ljust(40," ").upcase # 26 a 65 nome da empresa      
         primeira_linha << '20' #066 A 067 Tipo de Serviço Fixo “20”
         primeira_linha << '1' #068 A 068 Código de origem do arquivo Fixo “1”
         primeira_linha << self.parametros.sequencial_arquivo_cobranca.to_s.rjust(5,"0")   # 069 a 073 numero sequencial de remessa
@@ -273,17 +273,17 @@ module Brcobranca
             linha = "1"
             linha << ressarcimento.tipo_inscricao.to_s # 002 A 002 - Tipo de inscricao do Fornecedor - 1- CPF, 2- CNPJ, 3-OUtros
             linha << vcpf.rjust(15,'0') #003 A 017 - CPF/CNPJ fornecedor
-            linha << I18n.transliterate(ressarcimento.favorecido)[0,30].gsub('º',' ').gsub('°',' ').upcase.ljust(30) #018 A 047 - Nome do fornecedor
+            linha << I18n.transliterate(ressarcimento.favorecido)[0,30].gsub('º',' ').gsub('°',' ').to_s.upcase.ljust(30, ' ') #018 A 047 - Nome do fornecedor
             #linha << I18n.transliterate(ressarcimento.endereco)[0,40].gsub('º',' ').gsub('°',' ').upcase.ljust(40,' ') # 048 A 087 Endereco do fornecedor
             #linha << ressarcimento.cep #088 A 095 -  Cep do fornecedor
             linha << 'RUA WALTER BEZERRA DE SA 55'.ljust(40,' ') # 048 A 087 Endereco do fornecedor
             linha << '60135225' #088 A 095 -  Cep do fornecedor      
             linha << ressarcimento.cod_banco.rjust(3,'0') #096 A 098 - Codigo do banco do fornecedor
             linha << ressarcimento.agencia.rjust(5,'0') # 099 A 103 - Codigo da agencia do fornecedor
-            linha << ressarcimento.digito_agencia.ljust(1,' ') # 104 A 104 - digito da agencia do fornecedor
+            linha << ressarcimento.digito_agencia.to_s.ljust(1,' ') # 104 A 104 - digito da agencia do fornecedor
             linha << ressarcimento.conta_corrente.rjust(13,'0') # 105 A 117 - conta ocrrente do fornecedor
-            linha << ressarcimento.digito_conta.ljust(2,' ') #118 A 119 - digito da conta corrente do fornecedor
-            linha << ressarcimento.numero_pagamento.ljust(16,' ') #120 A 135 - Número do Pagamento.
+            linha << ressarcimento.digito_conta.to_s.ljust(2,' ') #118 A 119 - digito da conta corrente do fornecedor
+            linha << ressarcimento.numero_pagamento.to_s.ljust(16,' ') #120 A 135 - Número do Pagamento.
             linha << '000' #136 A 138 - Carteira - fixo 000
             linha << ''.rjust(12,'0') #139 A 150 - Nosso numero - fixo 0
             linha << ''.rjust(15,'0') #151 A 165 - Seu numero - fixo 0
