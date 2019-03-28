@@ -141,7 +141,8 @@ module Brcobranca
         # primeira_linha << num_sequencia.to_s.rjust(6,"0") # 495 a 500 numero sequencial do registro de um em um 
         p = self.parametros
 
-        primeira_linha =  "237" # 3 - Código do Banco na Compensação ( BRADESCO fixo)
+        primeira_linha = ''
+        primeira_linha << "237" # 3 - Código do Banco na Compensação ( BRADESCO fixo)
         primeira_linha << "0000" # 4 - Lote de Serviço ( Se registro for Header do Arquivo preencher com '0000' )
         primeira_linha << "0" # 1 - Tipo de Registro ( '0' = Header de Arquivo )
         primeira_linha << ''.ljust(9,' ') # 9 - Uso Exclusivo da FEBRACAN/CNAB
@@ -163,7 +164,7 @@ module Brcobranca
         primeira_linha << Time.now.strftime('%H%M%S').to_s.rjust(6,"0") # 6 - Hora de Geração do Arquivo
         primeira_linha << p.sequencial_arquivo_cobranca.to_s.rjust(5,"0") # 6 - Número Seqüencial do Arquivo
         primeira_linha << "089" # 3 - No da Versão do Layout do Arquivo
-        primeira_linha << "" # 5 - Densidade de Gravação do Arquivo
+        primeira_linha << "".ljust(5,'0') # 5 - Densidade de Gravação do Arquivo
         primeira_linha << ''.ljust(20,' ') # 20 - Para Uso Reservado do Banco
         primeira_linha << ''.ljust(20,' ') # 20 - Para Uso Reservado da Empresa
         primeira_linha << ''.ljust(29,' ') # 29 - Uso Exclusivo FEBRABAN / CNAB
@@ -172,7 +173,7 @@ module Brcobranca
         p.sequencial_arquivo_cobranca += 1
         p.save         
         return primeira_linha
-      end      
+      end    
       
       def corpo_arquivo_remessa_fatura
         numero_de_registros = self.num_sequencia
