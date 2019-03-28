@@ -105,7 +105,7 @@ module Brcobranca
         return primeira_linha
       end
       
-      def cabecalho_arquivo_repasse
+      def cabecalho_arquivo_repasse_old
         primeira_linha = "0" #001 A 001 - Identificação do Registro - 001 -Obrigatório – fixo “zero”(0)
         primeira_linha << self.parametros.codigo_de_comunicacao.to_s.rjust(8,'0') # 002 A 009 - Código de Comunicação - 008 
         primeira_linha << '2' #010 A 010 -  Tipo de Inscrição da Empresa Pagadora - 1 = CPF / 2 = CNPJ / 3= OUTROS
@@ -134,6 +134,45 @@ module Brcobranca
         p.save         
         return primeira_linha
       end
+
+      def cabecalho_arquivo_repasse
+        # primeira_linha << self.parametros.codigo_de_comunicacao.to_s.rjust(8,'0') # 002 A 009 - Código de Comunicação - 008 
+        # primeira_linha << self.parametros.numero_da_lista_de_debito.to_s.rjust(9,'0') #478 A 486 - Numero da lista de debito
+        # primeira_linha << num_sequencia.to_s.rjust(6,"0") # 495 a 500 numero sequencial do registro de um em um 
+        p = self.parametros
+
+        primeira_linha =  "237" # 3 - Código do Banco na Compensação ( BRADESCO fixo)
+        primeira_linha << "0000" # 4 - Lote de Serviço ( Se registro for Header do Arquivo preencher com '0000' )
+        primeira_linha << "0" # 1 - Tipo de Registro ( '0' = Header de Arquivo )
+        primeira_linha << ''.ljust(9,' ') # 9 - Uso Exclusivo da FEBRACAN/CNAB
+        
+        primeira_linha << '2' # 1  - Tipo de Inscrição da Empresa ( '2' = CGC / CNPJ )
+        primeira_linha << p.cnpj_cedente.rjust(14,'0') # 14 - Número de Inscrição da Empresa
+        primeira_linha << p.codigo_convenio.rjust(20, '0') # 20 - Código do Convênio no Banco
+        primeira_linha << p.agencia.rjust(5,'0') # 5 - Agência Mantenedora da Conta
+        primeira_linha << p.agencia_dv.to_s # 1 - Dígito Verificador da Agência
+        primeira_linha << p.conta.rjust(12,'0') # 12 - Número da Conta Corrente
+        primeira_linha << p.conta_dv.to_s # 1 - Dígito Verificador da Conta
+        primeira_linha << " " # 1 - Dígito Verificador da Ag/Conta
+        primeira_linha << I18n.transliterate(p.cedente)[0,30].ljust(30," ").upcase # 30 - Nome da Empresa
+        primeira_linha << "Banco Bradesco SA".ljust(30," ").upcase # 30 - Nome do Banco
+        primeira_linha << ''.ljust(10,' ') # 10 - Uso Exclusivo da FEBRACAN/CNAB
+
+        primeira_linha << "1" # 1 - Código Remessa / Retorno ( '1' = Remessa (Cliente Banco) )
+        primeira_linha << Time.now.strftime('%Y%m%d').to_s.rjust(8,"0") # 8 - Data de Geração do Arquivo
+        primeira_linha << Time.now.strftime('%H%M%S').to_s.rjust(6,"0") # 6 - Hora de Geração do Arquivo
+        primeira_linha << p.sequencial_arquivo_cobranca.to_s.rjust(5,"0") # 6 - Número Seqüencial do Arquivo
+        primeira_linha << "089" # 3 - No da Versão do Layout do Arquivo
+        primeira_linha << "" # 5 - Densidade de Gravação do Arquivo
+        primeira_linha << ''.ljust(20,' ') # 20 - Para Uso Reservado do Banco
+        primeira_linha << ''.ljust(20,' ') # 20 - Para Uso Reservado da Empresa
+        primeira_linha << ''.ljust(29,' ') # 29 - Uso Exclusivo FEBRABAN / CNAB
+
+        # p.numero_da_lista_de_debito += 1
+        p.sequencial_arquivo_cobranca += 1
+        p.save         
+        return primeira_linha
+      end      
       
       def corpo_arquivo_remessa_fatura
         numero_de_registros = self.num_sequencia
