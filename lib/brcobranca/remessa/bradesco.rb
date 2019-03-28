@@ -168,6 +168,7 @@ module Brcobranca
         primeira_linha << ''.ljust(20,' ') # 20 - Para Uso Reservado do Banco
         primeira_linha << ''.ljust(20,' ') # 20 - Para Uso Reservado da Empresa
         primeira_linha << ''.ljust(29,' ') # 29 - Uso Exclusivo FEBRABAN / CNAB
+        primeira_linha << "\n"
 
         # p.numero_da_lista_de_debito += 1
         p.sequencial_arquivo_cobranca += 1
