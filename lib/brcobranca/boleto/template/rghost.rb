@@ -176,18 +176,19 @@ module Brcobranca
             "- Por motivo de segurança e visando eliminar quaisquer tentativas de fraude, o ressarcimento dos boletos não utilizados somente será",
             "  realizado ao próprio SACADO ou a quem este indique (seja Pessoa Física ou Jurídica), mediante DECLARAÇÃO escrita e com firma",
             "  reconhecida em Cartório, além da apresentação do boleto original.",
+            "- Esse boleto estará disponível para pagamento no sistema bancário em até uma hora.",
             "- Caso tenha problemas ao imprimir, copie a sequencia numérica abaixo e pague no caixa eletrônico ou internet banking:"
           ]
 
-          doc.text_in :write => instrucoes[0], :x => "9 cm", :y => "28 cm"  , :tag => :negrito  
-          doc.text_in :write => instrucoes[1], :x => "1 cm", :y => "27.4 cm", :tag => :negrito    
-          doc.text_in :write => instrucoes[2], :x => "1 cm", :y => "26.9 cm", :tag => :negrito    
-          doc.text_in :write => instrucoes[3], :x => "1 cm", :y => "26.4 cm", :tag => :negrito    
-          doc.text_in :write => instrucoes[4], :x => "1 cm", :y => "25.9 cm", :tag => :negrito    
-          doc.text_in :write => instrucoes[5], :x => "1 cm", :y => "25.4 cm", :tag => :negrito
-          doc.text_in :write => instrucoes[6], :x => "1 cm", :y => "25 cm", :tag => :negrito
-          doc.text_in :write => instrucoes[7], :x => "1 cm", :y => "24.6 cm", :tag => :negrito
-          doc.text_in :write => instrucoes[8], :x => "1 cm", :y => "24.1 cm", :tag => :negrito    
+          doc.text_in :write => instrucoes[0], :x => "9 cm", :y => "29 cm"  , :tag => :negrito  
+          doc.text_in :write => instrucoes[1], :x => "1 cm", :y => "28.4 cm", :tag => :negrito    
+          doc.text_in :write => instrucoes[2], :x => "1 cm", :y => "27.9 cm", :tag => :negrito    
+          doc.text_in :write => instrucoes[3], :x => "1 cm", :y => "27.4 cm", :tag => :negrito    
+          doc.text_in :write => instrucoes[4], :x => "1 cm", :y => "26.9 cm", :tag => :negrito    
+          doc.text_in :write => instrucoes[5], :x => "1 cm", :y => "26.4 cm", :tag => :negrito
+          doc.text_in :write => instrucoes[6], :x => "1 cm", :y => "26 cm", :tag => :negrito
+          doc.text_in :write => instrucoes[7], :x => "1 cm", :y => "25.6 cm", :tag => :negrito
+          doc.text_in :write => instrucoes[8], :x => "1 cm", :y => "25.1 cm", :tag => :negrito    
 
           doc.text_in :write => "Linha Digitável: #{boleto.codigo_barras.linha_digitavel}",       :x => "1 cm",    :y => "23.3 cm",   :tag => :comprovante
           doc.text_in :write => "Valor: #{boleto.especie} #{boleto.valor_documento.to_currency}", :x => "1 cm",    :y => "22.8 cm", :tag => :comprovante 
