@@ -188,7 +188,8 @@ module Brcobranca
           doc.text_in :write => instrucoes[5], :x => "1 cm", :y => "26.4 cm", :tag => :negrito
           doc.text_in :write => instrucoes[6], :x => "1 cm", :y => "26 cm", :tag => :negrito
           doc.text_in :write => instrucoes[7], :x => "1 cm", :y => "25.6 cm", :tag => :negrito
-          doc.text_in :write => instrucoes[8], :x => "1 cm", :y => "25.1 cm", :tag => :negrito    
+          doc.text_in :write => instrucoes[8], :x => "1 cm", :y => "25.1 cm", :tag => :negrito
+          doc.text_in :write => instrucoes[9], :x => "1 cm", :y => "24.6 cm", :tag => :negrito
 
           doc.text_in :write => "Linha Digitável: #{boleto.codigo_barras.linha_digitavel}",       :x => "1 cm",    :y => "23.3 cm",   :tag => :comprovante
           doc.text_in :write => "Valor: #{boleto.especie} #{boleto.valor_documento.to_currency}", :x => "1 cm",    :y => "22.8 cm", :tag => :comprovante 
